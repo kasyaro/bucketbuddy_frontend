@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 
 
 
+
 class App extends React.Component {
 constructor(props) {
   super(props)
@@ -59,31 +60,33 @@ handleAddAdventure(adventures) {
   })
 }
   render() {
-
+console.log(baseURL)
     return (
       
       <div className="App">
       <h1>Save Your Adventure!</h1>
        <NewForm handleAddAdventure={this.handleAddAdventure}/>
         <h1>List of "Adventures"</h1>
-<ul class='card'> 
+<div className='container'> 
 {this.state.adventures.map(adventure => {
   console.log(this.state.adventures)
   return (
     
-
-    <div  key={adventure._id} >
-<li> {adventure.title}</li>
-<img src={adventure.img} alt='image' width='250'/>
-<li>{adventure.notes}</li>
-<li>{adventure._v}</li>
-<li>{adventure.completed}</li>
+<div className="card" key={adventure._id} >
+<div className="top-div"> {adventure.title}</div>
+<div>
+<img src={adventure.img} alt='image'/>
+{/* <li>{adventure.notes}</li> */}
+{/* <li>{adventure.completed}</li> */}
+</div>
+<div className="bottom-div">
 <h2 onClick={() => this.deleteAdventure(adventure._id)}>Delete X</h2>
-    </div>
+</div>
+</div>
 
   )
 })}
-</ul>
+</div>
 
       </div>
     );
