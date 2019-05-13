@@ -28,14 +28,14 @@ class NewForm extends React.Component {
    // make server/db call to put in our database
    fetch(baseURL + '/adventures', {
      method: 'POST',
-     body: JSON.stringify({title: this.state.title}, {img: this.state.img}),
+     body: JSON.stringify({title: this.state.title, img: this.state.img, notes: this.state.notes}),
      headers: {
        'Content-Type': 'application/json'
      }
    }).then (res => res.json())
      .then( resJSON => {
        this.props.handleAddAdventure(resJSON)
-       this.setState({title: "", img: ""})
+       this.setState({title: "", img: "", notes: ""})
      })
    // need to send our input to our App.js
 
