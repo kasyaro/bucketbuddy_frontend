@@ -19,11 +19,22 @@ constructor(props) {
     adventures: []
   }
   this.getAdventures = this.getAdventures.bind(this)
-//   this.deleteBookmark = this.deleteBookmark.bind(this)
+  this.deleteAdventure = this.deleteAdventure.bind(this)
  this.handleAddAdventure = this.handleAddAdventure.bind(this)
 }
-
-
+componentDidMount(){
+  this.getAdventures()
+}
+deleteAdventure(id) {
+  fetch(baseURL + '/adventures/' + id, {
+    method: 'DELETE'
+  }).then(response => {
+    const findIndex = this.state.adventures.findIndex(adventure => adventure._id === id)
+    const copyAdventures = [...this.state.adventures]
+    copyAdventures.splice(findIndex, 1)
+    this.setState({ adventures: copyAdventures })
+  })
+}
 
 getAdventures () {
   fetch(baseURL+ '/adventures')
@@ -36,11 +47,6 @@ getAdventures () {
   },
   err=> console.log(err))
 } 
-
-componentDidMount(){
-  this.getAdventures()
-}
-
 handleAddAdventure(adventures) {
   const copyAdventures = [...this.state.adventures]
   console.log(copyAdventures)
@@ -48,7 +54,8 @@ handleAddAdventure(adventures) {
   console.log(copyAdventures)
   this.setState({
     adventures: copyAdventures,
-    title: ''
+    title: '',
+    img: ''
   })
 }
   render() {
@@ -71,6 +78,7 @@ handleAddAdventure(adventures) {
 <li>{adventure.notes}</li>
 <li>{adventure._v}</li>
 <li>{adventure.completed}</li>
+<h2 onClick={() => this.deleteAdventure(adventure._id)}>Delete X</h2>
     </div>
 
   )

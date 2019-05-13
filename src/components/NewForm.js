@@ -28,14 +28,14 @@ class NewForm extends React.Component {
    // make server/db call to put in our database
    fetch(baseURL + '/adventures', {
      method: 'POST',
-     body: JSON.stringify({title: this.state.title}),
+     body: JSON.stringify({title: this.state.title}, {img: this.state.img}),
      headers: {
        'Content-Type': 'application/json'
      }
    }).then (res => res.json())
      .then( resJSON => {
        this.props.handleAddAdventure(resJSON)
-       this.setState({title: ''})
+       this.setState({title: "", img: ""})
      })
    // need to send our input to our App.js
 
@@ -52,10 +52,18 @@ class NewForm extends React.Component {
          value={this.state.title}
          placeholder="Add an Adventure!"
        />
-       
+       <label htmlFor="img"></label>
+       <input
+         type="text"
+         id="img"
+         name="img"
+         onChange={this.handleChange}
+         value={this.state.img}
+         placeholder="Add an image URL"
+       />
        <input
          type="submit"
-         value="Add a Reason to Celebrate"
+         value="Add a New Adventure!"
        />
      </form>
    )
