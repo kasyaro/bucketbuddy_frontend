@@ -50,7 +50,7 @@ class NewForm extends React.Component {
          name="title"
          onChange={this.handleChange}
          value={this.state.title}
-         placeholder="Add an Adventure!"
+         placeholder="Adventure Title"
        />
        <label htmlFor="img"></label>
        <input
@@ -59,11 +59,11 @@ class NewForm extends React.Component {
          name="img"
          onChange={this.handleChange}
          value={this.state.img}
-         placeholder="Add an image URL"
+         placeholder="Image URL"
        />
-       <input
+       <input className="input-submit"
          type="submit"
-         value="Add a New Adventure!"
+         value="Add a New Adventure"
        />
      </form>
    )
