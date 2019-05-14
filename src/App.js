@@ -11,9 +11,6 @@ if (process.env.NODE_ENV === 'development') {
   baseURL = 'https://dry-river-83879.herokuapp.com'
 }
 
-
-
-
 class App extends React.Component {
 
 constructor(props) {
