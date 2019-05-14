@@ -1,14 +1,21 @@
 .App {
+  /* background: #eeeded; */
+}
+
+.form-container {
   text-align: center;
+  color: #3D5874;
 }
 
 .container {
+  margin: 0 auto;
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .card {
@@ -17,6 +24,7 @@
   margin: 10px;
   /* position: relative; */
   /* border: 2px solid blue; */
+  color: white;
 }
 img {
   width: 200px;
@@ -26,23 +34,61 @@ img {
 }
 
  .top-div {
-  background: orange;
+  background: #EAB43D;
   /* position: absolute; */
-  height: 30px;
+  height: 40px;
   top: 0;
   width: 200px;
+  color: #3D5874;
+  font-weight: 800;
+  margin: auto auto;
 }
 .bottom-div {
-  background: orange;
+  background: #cccccc;
   /* position: absolute; */
-  height: 30px;
+  height: 40px;
  /* top: 0;  */
   width: 200px;
   /* border: 2px solid red; */
   margin-top: -5px;
+  /* display: flex;
+  flex-direction: row; */
+  /* justify-content: space-between; */
 }
 
 h2 {
   margin: 0;
   padding: 0;
+  color: #3D5874;
+}
+h4 {
+  color: #F05557;
+  font-style: italic;
+}
+.logo {
+  height: 30px;
+  padding: 20px;
+  align-content: left;
+}
+
+.delete, .edit {
+  border-radius: 5px;
+  background: transparent;
+  border: transparent;
+  color: #F05557;
+  height: 20px;
+}
+
+input {
+  margin: 5px;
+}
+.input-submit {
+  border: 2px solid #3D5874;
+  border-radius: 5px;
+  margin: 10px;
+  color: #3D5874;
+}
+
+span {
+  padding: 10px;
 }

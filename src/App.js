@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import NewForm from './components/NewForm'
+import BucketLogo from "./BucketLogo.png"
 
 let baseURL = process.env.REACT_APP_BASEURL
 //alternate baseURL = 'https://fathomless-sierra-68956.herokuapp.com'
@@ -64,9 +65,12 @@ console.log(baseURL)
     return (
       
       <div className="App">
-      <h1>Save Your Adventure!</h1>
+      <img className="logo" src={BucketLogo} alt="Logo" />
+      <div className="form-container">
+      <h1>Bucket List Adventures</h1>
+      <h4>Stop wishing. Start living!</h4>
        <NewForm handleAddAdventure={this.handleAddAdventure}/>
-        <h1>List of "Adventures"</h1>
+        </div>
 <div className='container'> 
 {this.state.adventures.map(adventure => {
   console.log(this.state.adventures)
@@ -75,12 +79,13 @@ console.log(baseURL)
 <div className="card" key={adventure._id} >
 <div className="top-div"> {adventure.title}</div>
 <div>
-<img src={adventure.img} alt='image'/>
+<img src={adventure.img} alt='image' height='300'/>
 {/* <li>{adventure.notes}</li> */}
 {/* <li>{adventure.completed}</li> */}
 </div>
 <div className="bottom-div">
-<h2 onClick={() => this.deleteAdventure(adventure._id)}>Delete X</h2>
+<span className="edit" >Edit</span>
+<span className="delete" onClick={() => this.deleteAdventure(adventure._id)}>Delete</span>
 </div>
 </div>
 
