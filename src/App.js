@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import NewForm from './components/NewForm'
 import BucketLogo from "./BucketLogo.png"
+import Checkbox from "./Checkbox-256.png"
+ import CheckboxCompleted from "./Checked-Checkbox-256.png"
 
 let baseURL = process.env.REACT_APP_BASEURL
 //alternate baseURL = 'https://fathomless-sierra-68956.herokuapp.com'
@@ -21,6 +23,7 @@ constructor(props) {
   this.getAdventures = this.getAdventures.bind(this)
   this.deleteAdventure = this.deleteAdventure.bind(this)
  this.handleAddAdventure = this.handleAddAdventure.bind(this)
+ this.toggleCompleted = this.toggleCompleted.bind(this)
 }
 componentDidMount(){
   this.getAdventures()
@@ -55,8 +58,26 @@ handleAddAdventure(adventures) {
   this.setState({
     adventures: copyAdventures,
     title: '',
-    img: ''
+    img: '',
+    completed: false
   })
+}
+toggleCompleted(adventure) {
+  fetch(baseURL + '/adventures/' + adventure._id, {
+    method: 'PUT',
+    body: JSON.stringify({ completed: !adventure.completed }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(res => res.json())
+    .then(resJson => {
+      const copyAdventures = [...this.state.adventures]
+      const findIndex = this.state.adventures.findIndex(adventure => adventure._id === resJson._id)
+      copyAdventures[findIndex].completed = resJson.completed
+      this.setState({ adventures: copyAdventures })
+    })
+
 }
   render() {
 
@@ -82,13 +103,17 @@ handleAddAdventure(adventures) {
 <div className="bottom-div">
 <span className="edit" >Edit</span>
 <span className="delete" onClick={() => this.deleteAdventure(adventure._id)}>Delete</span>
+
+<span onClick={()=> this.toggleCompleted(adventure)}
+>
+{adventure.completed ? <span><img className='chek' src= {Checkbox} alt="Check"/></span> : <span><img className='chek' src= {CheckboxCompleted} alt="Check"/></span>}
+</span>
 </div>
 </div>
 
   )
 })}
 </div>
-
       </div>
     );
 
