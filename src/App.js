@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import NewForm from './components/NewForm'
+import BucketLogo from "./BucketLogo.png"
 
 let baseURL = process.env.REACT_APP_BASEURL
 //alternate baseURL = 'https://fathomless-sierra-68956.herokuapp.com'
@@ -9,6 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   baseURL = 'https://dry-river-83879.herokuapp.com'
 }
+
 
 
 
@@ -59,31 +61,37 @@ handleAddAdventure(adventures) {
   })
 }
   render() {
-
+console.log(baseURL)
     return (
       
       <div className="App">
-      <h1>Save Your Adventure!</h1>
+      <img className="logo" src={BucketLogo} alt="Logo" />
+      <div className="form-container">
+      <h1>Bucket List Adventures</h1>
+      <h4>Stop wishing. Start living!</h4>
        <NewForm handleAddAdventure={this.handleAddAdventure}/>
-        <h1>List of "Adventures"</h1>
-<ul class='card'> 
+        </div>
+<div className='container'> 
 {this.state.adventures.map(adventure => {
   console.log(this.state.adventures)
   return (
     
-
-    <div  key={adventure._id} >
-<li> {adventure.title}</li>
-<img src={adventure.img} alt='image' width='250'/>
-<li>{adventure.notes}</li>
-<li>{adventure._v}</li>
-<li>{adventure.completed}</li>
-<h2 onClick={() => this.deleteAdventure(adventure._id)}>Delete X</h2>
-    </div>
+<div className="card" key={adventure._id} >
+<div className="top-div"> {adventure.title}</div>
+<div>
+<img src={adventure.img} alt='image' height='300'/>
+{/* <li>{adventure.notes}</li> */}
+{/* <li>{adventure.completed}</li> */}
+</div>
+<div className="bottom-div">
+<span className="edit" >Edit</span>
+<span className="delete" onClick={() => this.deleteAdventure(adventure._id)}>Delete</span>
+</div>
+</div>
 
   )
 })}
-</ul>
+</div>
 
       </div>
     );
