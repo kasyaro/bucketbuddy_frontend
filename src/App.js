@@ -12,7 +12,9 @@ if (process.env.NODE_ENV === 'development') {
 
 
 
+
 class App extends React.Component {
+
 constructor(props) {
   super(props)
   this.state = {
@@ -59,14 +61,14 @@ handleAddAdventure(adventures) {
   })
 }
   render() {
-
+    console.log('hi')
     return (
       
       <div className="App">
       <h1>Save Your Adventure!</h1>
        <NewForm handleAddAdventure={this.handleAddAdventure}/>
         <h1>List of "Adventures"</h1>
-<ul class='card'> 
+<ul className='card'> 
 {this.state.adventures.map(adventure => {
   console.log(this.state.adventures)
   return (
