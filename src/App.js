@@ -20,8 +20,10 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      adventures: []
+      adventures: [],
+      adventure: {}
     }
+    this.getAdventure = this.getAdventure.bind(this)
     this.getAdventures = this.getAdventures.bind(this)
     this.deleteAdventure = this.deleteAdventure.bind(this)
     this.handleAddAdventure = this.handleAddAdventure.bind(this)
@@ -58,17 +60,17 @@ class App extends React.Component {
 // }
 // updatedAdventure(resJSON) {
 
-//     const copyupdatedAdventure = [...this.state.adventure]
-//     console.log(copyupdatedAdventure)
+//     const copyUpdatedAdventure = [...this.state.adventure]
+//     console.log(copyUpdatedAdventure)
     
-//     const findIndex = this.state.drinks.findIndex(drink => drink._id === resJSON._id)
-//     copyEditDrinks[findIndex] = resJSON
+//     const findIndex = this.state.adventure.findIndex(adventure => adventure._id === resJSON._id)
+//     copyUpdateAdventure[findIndex] = resJSON
 //     this.setState({
-//         drinks: copyEditDrinks
+//         adventure: copyUpdateAdventure
 //     })
-//     this.setState({ edit: false })
-// }
-// }
+    //this.setState({ edit: false })
+//}
+
   getAdventures() {
     fetch(baseURL + '/adventures')
       .then(data => {
@@ -81,6 +83,7 @@ class App extends React.Component {
       },
         err => console.log(err))
   }
+  //delete s
   handleAddAdventure(adventures) {
     const copyAdventures = [...this.state.adventures]
     console.log(copyAdventures)
@@ -92,6 +95,14 @@ class App extends React.Component {
       img: ''
     })
   }
+
+  //add to check fro img functionality
+      getAdventure(adventure) {
+        this.setState({adventure: adventure})
+
+       }
+//****** */
+
   toggleCompleted(adventure) {
     fetch(baseURL + '/adventures/' + adventure._id, {
       method: 'PUT',
@@ -111,26 +122,44 @@ class App extends React.Component {
   render() {
     console.log(baseURL)
 
-    return (
-      <div className="App">
+    // return (
 
-        <img className="logo" src={BucketLogo} alt="Logo" />
-        <div className="form-container">
-          <h1>Bucket List Adventures</h1>
-          <h4>Stop wishing. Start living!</h4>
+    //   <div className="App">
+
+    //     <img className="logo" src={BucketLogo} alt="Logo" />
+    //     <div className="form-container">
+    //       <h1>Bucket List Adventures</h1>
+    //       <h4>Stop wishing. Start living!</h4>
          
+    //       <NewForm handleAddAdventure={this.handleAddAdventure} />
+    //     </div>
+    //     <div className='container'>
+    //       {this.state.adventures.map(adventure => {
+    //         console.log(this.state.adventures)
+    //         return (
+
+      return (
+        <div className="App">
+            <header>
+          <img className="logo" src={BucketLogo} alt="Logo" />
+          <h4>stop wishing. start living!</h4>
           <NewForm handleAddAdventure={this.handleAddAdventure} />
-        </div>
-        <div className='container'>
-          {this.state.adventures.map(adventure => {
-            console.log(this.state.adventures)
-            return (
+          </header>
+          <div className="form-container">
+            
+           
+           
+          </div>
+          <div className='container'>
+            {this.state.adventures.map(adventure => {
+              console.log(this.state.adventures)
+              return (
+
               <div className="card" key={adventure._id} >
                 <div className="top-div"> {adventure.title}</div>
                 <div>
                   <img src={adventure.img} alt='image' height='300' />
-                  {/* <li>{adventure.notes}</li> */}
-                  {/* <li>{adventure.completed}</li> */}
+                  
                 </div>
                 <div className="bottom-div">
                 
@@ -150,7 +179,8 @@ class App extends React.Component {
                 </div>
               
                 <EditForm 
-                // all my props go here, see examle pooop
+                //onClick={ () => this.updatedAdventure(adventure)}
+                // all my props go here, props===editItem={adventure}
                   editItem={adventure}
                   
                 />
