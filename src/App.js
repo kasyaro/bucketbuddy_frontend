@@ -2,8 +2,12 @@ import React from 'react';
 import './App.css';
 import NewForm from './components/NewForm'
 import BucketLogo from "./BucketLogo.png"
+import EditForm from "./components/EditForm.js"
 import Checkbox from "./square-regular.svg"
 import CheckboxCompleted from "./check-square-regular.svg"
+
+
+
 let baseURL = process.env.REACT_APP_BASEURL
 //alternate baseURL = 'https://fathomless-sierra-68956.herokuapp.com'
 if (process.env.NODE_ENV === 'development') {
@@ -12,6 +16,7 @@ if (process.env.NODE_ENV === 'development') {
   baseURL = 'https://dry-river-83879.herokuapp.com'
 }
 class App extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -21,6 +26,7 @@ class App extends React.Component {
     this.deleteAdventure = this.deleteAdventure.bind(this)
     this.handleAddAdventure = this.handleAddAdventure.bind(this)
     this.toggleCompleted = this.toggleCompleted.bind(this)
+//this.updatedAdventure = this.updatedAdventure.bind(this)
   }
   componentDidMount() {
     this.getAdventures()
@@ -35,6 +41,34 @@ class App extends React.Component {
       this.setState({ adventures: copyAdventures })
     })
   }
+
+// updatedAdventure(event) {
+// event.preventDefault()
+// const newAdventure = {
+//   title: this.state.title,
+//     img: this.state.img,
+//     notes: this.state.notes
+// }
+// const updatedAdventure = [...this.state.adventure, newAdventure]
+
+// this.setState ({
+//   adventures: updatedAdventure
+
+// })
+// }
+// updatedAdventure(resJSON) {
+
+//     const copyupdatedAdventure = [...this.state.adventure]
+//     console.log(copyupdatedAdventure)
+    
+//     const findIndex = this.state.drinks.findIndex(drink => drink._id === resJSON._id)
+//     copyEditDrinks[findIndex] = resJSON
+//     this.setState({
+//         drinks: copyEditDrinks
+//     })
+//     this.setState({ edit: false })
+// }
+// }
   getAdventures() {
     fetch(baseURL + '/adventures')
       .then(data => {
@@ -76,12 +110,15 @@ class App extends React.Component {
   }
   render() {
     console.log(baseURL)
+
     return (
       <div className="App">
+
         <img className="logo" src={BucketLogo} alt="Logo" />
         <div className="form-container">
           <h1>Bucket List Adventures</h1>
           <h4>Stop wishing. Start living!</h4>
+         
           <NewForm handleAddAdventure={this.handleAddAdventure} />
         </div>
         <div className='container'>
@@ -96,7 +133,13 @@ class App extends React.Component {
                   {/* <li>{adventure.completed}</li> */}
                 </div>
                 <div className="bottom-div">
-                  <span className="edit" >Edit</span>
+                
+
+                <span className="edit" onClick={()=>
+                  
+                  console.log(adventure)
+                  //this.updatedAdventure(adventure._id)
+                }> Edit</span>
                   <span className="delete" onClick={() => this.deleteAdventure(adventure._id)}>Delete</span>
                   <span onClick={() => this.toggleCompleted(adventure)}
                   >
@@ -105,7 +148,15 @@ class App extends React.Component {
                     </span>}
                   </span>
                 </div>
+              
+                <EditForm 
+                // all my props go here, see examle pooop
+                  editItem={adventure}
+                  
+                />
+
                 </div>
+
                 )
               })}
         </div>
