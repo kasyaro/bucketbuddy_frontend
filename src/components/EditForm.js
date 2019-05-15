@@ -13,9 +13,9 @@
   constructor (props) {
     super(props)
     this.state = {
-      title: '',
-      img: '',
-      notes: ''
+      title: this.props.editItem.id,
+      img: this.props.editItem.img,
+      notes: this.props.editItem.notes
  
     }
     this.handleChange = this.handleChange.bind(this)
@@ -26,7 +26,6 @@
   }
   handleSubmit(event) {
     event.preventDefault()
-    console.log(this.props.editItem._id)
     // make server/db call to put in our database
     fetch(baseURL + `/adventures/${this.props.editItem._id}`, {
       method: 'PUT',
@@ -62,7 +61,7 @@
           name="img"
           onChange={this.handleChange}
           defaultValue={this.props.editItem.img}
-          placeholder={this.props.editItem.img}
+         placeholder={this.props.editItem.img}
         />
         <label htmlFor="notes"></label>
         <textarea
