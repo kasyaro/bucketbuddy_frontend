@@ -84,16 +84,21 @@ h4 {
 
 .delete, .edit  {
   display: flex;
+  justify-content: space-evenly;
  background: transparent;
  color: #F05557;
  height: 20px;
 }
-.check {   
+.check {
   opacity: .4;
+}
+span, .check {   
  height:20px;
  width: 20px;
- 
+ margin-left: 20px;
+ padding: 0px;
 }
+
 header input {
  width: 240px;
    margin: 5px;
@@ -112,6 +117,7 @@ input {
 }
 span {
  padding: 10px;
+ opacity: 1;
 }
 .form-card {
  background-color:rgba(240, 85, 87, .8);
