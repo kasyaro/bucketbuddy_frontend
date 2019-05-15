@@ -36,13 +36,14 @@
     }).then (res => res.json())
       .then( resJSON => {
         //this.props.handleAddAdventure(resJSON)
-        this.setState({title: "", img: "", notes: ""})
+        // this.setState({title: "", img: "", notes: ""})
+        this.props.handleUpdate(resJSON)
       })
     // need to send our input to our App.js
  
   }
   render () {
-      console.log(this.props)
+      console.log(this.props.children)
     return (
         <div>
       <form  className = 'form-card' onSubmit={this.handleSubmit}>
@@ -75,8 +76,9 @@
         <input className="input-submit"
           type="submit"
           value="Submit changes"
-        />
+          />
 
+          {this.props.children}
       </form>
       </div>
     )
@@ -84,7 +86,3 @@
  }
  
  export default EditForm
-
-
-
- 

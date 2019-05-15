@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
+import ReactCardFlip from 'react-card-flip';
 import NewForm from './components/NewForm'
 import BucketLogo from "./BucketLogo.png"
 import EditForm from "./components/EditForm.js"
-import Checkbox from "./square-regular.svg"
-import CheckboxCompleted from "./check-square-regular.svg"
-
-
-
+// import Checkbox from "./square-regular.svg"
+// import CheckboxCompleted from "./check-square-regular.svg"
+import FrontCard from './components/FrontCard';
 let baseURL = process.env.REACT_APP_BASEURL
 //alternate baseURL = 'https://fathomless-sierra-68956.herokuapp.com'
 if (process.env.NODE_ENV === 'development') {
@@ -15,21 +14,23 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   baseURL = 'https://dry-river-83879.herokuapp.com'
 }
-
 class App extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
       adventures: [],
-      adventure: {}
+      adventure: {},
+      isFlipped: false
     }
-    this.getAdventure = this.getAdventure.bind(this)
+    this.handleFlip = this.handleFlip.bind(this);
+    // this.getAdventure = this.getAdventure.bind(this)
     this.getAdventures = this.getAdventures.bind(this)
     this.deleteAdventure = this.deleteAdventure.bind(this)
     this.handleAddAdventure = this.handleAddAdventure.bind(this)
     this.toggleCompleted = this.toggleCompleted.bind(this)
-//this.updatedAdventure = this.updatedAdventure.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
+    //this.updatedAdventure = this.updatedAdventure.bind(this)
+    this.toggleUpdatedAdv = this.toggleUpdatedAdv.bind(this)
   }
   componentDidMount() {
     this.getAdventures()
@@ -44,34 +45,13 @@ class App extends React.Component {
       this.setState({ adventures: copyAdventures })
     })
   }
-
-// updatedAdventure(event) {
-// event.preventDefault()
-// const newAdventure = {
-//   title: this.state.title,
-//     img: this.state.img,
-//     notes: this.state.notes
-// }
-// const updatedAdventure = [...this.state.adventure, newAdventure]
-
-// this.setState ({
-//   adventures: updatedAdventure
-
-// })
-// }
-// updatedAdventure(resJSON) {
-
-//     const copyUpdatedAdventure = [...this.state.adventure]
-//     console.log(copyUpdatedAdventure)
-    
-//     const findIndex = this.state.adventure.findIndex(adventure => adventure._id === resJSON._id)
-//     copyUpdateAdventure[findIndex] = resJSON
-//     this.setState({
-//         adventure: copyUpdateAdventure
-//     })
-    //this.setState({ edit: false })
-//}
-
+  handleFlip(event, selectedAdventure) {
+    event.preventDefault();
+    // const findIndex = this.state.adventures.findIndex(adventure => adventure._id === selectedAdventure._id)
+    //   const copyAdventures = [...this.state.adventures]
+    //   copyAdventures[findIndex].isFlipped=!copyAdventures[findIndex].isFlipped
+    this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
+  }
   getAdventures() {
     fetch(baseURL + '/adventures')
       .then(data => {
@@ -84,7 +64,6 @@ class App extends React.Component {
       },
         err => console.log(err))
   }
-  //delete s
   handleAddAdventure(adventures) {
     const copyAdventures = [...this.state.adventures]
     console.log(copyAdventures)
@@ -96,14 +75,36 @@ class App extends React.Component {
       img: ''
     })
   }
+  
+  // handleSubmit(event) {
+  //   event.preventDefault()
+  //   // make server/db call to put in our database
+  //   fetch(baseURL + `/adventures/${this.props.editItem._id}`, {
+  //     method: 'PUT',
+  //     body: JSON.stringify({title: this.state.title, img: this.state.img, notes: this.state.notes}),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }).then (res => res.json())
+  //     .then( resJSON => {
+  //       //this.props.handleAddAdventure(resJSON)
+  //       // this.setState({title: "", img: "", notes: ""})
+  //       this.props.handleUpdate(resJSON)
+  //     })
+  //   // need to send our input to our App.js
 
+  // }
+  toggleUpdatedAdv(adventure) {
+
+    const copyUpdateAdv = [...this.state.adventures]
+    const findIndex = this.state.adventures.findIndex(adventure1 => adventure1._id === adventure._id)
+    copyUpdateAdv[findIndex] = adventure
+    this.setState({adventures: copyUpdateAdv})
+ }
   //add to check fro img functionality
-      getAdventure(adventure) {
-        this.setState({adventure: adventure})
-
-       }
-//****** */
-
+  // getAdventure(adventure) {
+  //   this.setState({ adventure: adventure })
+  // }
   toggleCompleted(adventure) {
     fetch(baseURL + '/adventures/' + adventure._id, {
       method: 'PUT',
@@ -122,83 +123,50 @@ class App extends React.Component {
   }
   render() {
     console.log(baseURL)
-
-    // return (
-
-    //   <div className="App">
-
-    //     <img className="logo" src={BucketLogo} alt="Logo" />
-    //     <div className="form-container">
-    //       <h1>Bucket List Adventures</h1>
-    //       <h4>Stop wishing. Start living!</h4>
-         
-    //       <NewForm handleAddAdventure={this.handleAddAdventure} />
-    //     </div>
-    //     <div className='container'>
-    //       {this.state.adventures.map(adventure => {
-    //         console.log(this.state.adventures)
-    //         return (
-
-      return (
-        <div className="App">
-            <header>
+    return (
+      <div className="App">
+        <header>
           <img className="logo" src={BucketLogo} alt="Logo" />
           <h4>stop wishing. start living!</h4>
           <NewForm handleAddAdventure={this.handleAddAdventure} />
-          </header>
-          <div className="form-container">
-            
-           
-           
-          </div>
-          <div className='container'>
-            {this.state.adventures.map(adventure => {
-              console.log(this.state.adventures)
-              return (
-
+        </header>
+        <div className='container'>
+          {this.state.adventures.map(adventure => {
+            console.log(this.state.adventures)
+            adventure.isFlipped=false
+            return (
               <div className="card" key={adventure._id} >
-                <div className="top-div"> {adventure.title}</div>
-                <div>
-                  <img src={adventure.img} alt='image' height='300' />
+
+                <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal" flipSpeedBackToFront={2}flipSpeedFrontToBack={2}>
+                  <FrontCard key="front"
+                    adventure={adventure}
+                    deleteAdventure={this.deleteAdventure}
+                    toggleCompleted={this.toggleCompleted}
+                    handleUpdate = {this.toggleUpdatedAdv}
+                    >
+                    <span className="edit" onClick={(event) => this.handleFlip(event, adventure)}> Edit</span>
+                  </FrontCard>
                   
-                </div>
-                <div className="bottom-div">
-                
+                  <EditForm key="back"
+                  handleUpdate = {this.toggleUpdatedAdv}
+                    editItem={adventure}
+                    
+                    >
+                    <input className="input-submit"
+                      type="submit"
+                      value="flip card"
+                      onClick={this.handleFlip}
 
-                <span className="edit" onClick={()=>
-                  
-                  console.log(adventure)
-                  //this.updatedAdventure(adventure._id)
-                }> Edit</span>
-                  <span className="delete" onClick={() => this.deleteAdventure(adventure._id)}>Delete</span>
-
-                  <span onClick={() => this.toggleCompleted(adventure)}
-                  >
-                    {adventure.completed ? <span><img className='check' src={CheckboxCompleted} alt="Check" /></span> :
-                     <span><img className='check' src={Checkbox} alt="Check" />
-                    </span>}
-                  </span>
-
-                </div>
-              
-                <EditForm 
-                //onClick={ () => this.updatedAdventure(adventure)}
-                // all my props go here, props===editItem={adventure}
-                  editItem={adventure}
-                  
-                />
-
-                </div>
-
-                )
-              })}
+                    />
+                  </EditForm>
+                </ReactCardFlip>
+              </div>
+            )
+          })}
         </div>
-        </div>
+      </div>
+    );
+  }
+}
+export default App;
 
-      
-        );
-    
-      }
-    }
-    
-    export default App;
