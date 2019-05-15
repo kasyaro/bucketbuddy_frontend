@@ -1,6 +1,6 @@
-.App {
-  /* background: #eeeded; */
-}
+ .App {
+   background: #eeeded; 
+} 
 
 .form-container {
   text-align: center;
@@ -92,7 +92,22 @@ input {
 span {
   padding: 10px;
 }
-.chek {
+
+
+.check {
+  height:10px;
   width: 10px;
-  height: 10px
+
+}
+.form-card {
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 1em 0em;
+}
+textarea {
+  height: 40px;
+  overflow: auto;
+  
 }
