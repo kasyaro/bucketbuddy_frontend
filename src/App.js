@@ -95,7 +95,6 @@ class App extends React.Component {
       img: ''
     })
   }
-
   //add to check fro img functionality
       getAdventure(adventure) {
         this.setState({adventure: adventure})
@@ -145,11 +144,9 @@ class App extends React.Component {
           <h4>stop wishing. start living!</h4>
           <NewForm handleAddAdventure={this.handleAddAdventure} />
           </header>
-          <div className="form-container">
-            
-           
-           
-          </div>
+          {/* <div className="form-container">
+          </div> */}
+         
           <div className='container'>
             {this.state.adventures.map(adventure => {
               console.log(this.state.adventures)
@@ -162,10 +159,8 @@ class App extends React.Component {
                   
                 </div>
                 <div className="bottom-div">
-                
-
                 <span className="edit" onClick={()=>
-                  
+                
                   console.log(adventure)
                   //this.updatedAdventure(adventure._id)
                 }> Edit</span>
@@ -177,7 +172,7 @@ class App extends React.Component {
                     </span>}
                   </span>
                 </div>
-              
+               
                 <EditForm 
                 //onClick={ () => this.updatedAdventure(adventure)}
                 // all my props go here, props===editItem={adventure}
