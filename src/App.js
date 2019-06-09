@@ -55,6 +55,7 @@ class App extends React.Component {
   getAdventures() {
     fetch(baseURL + '/adventures')
       .then(data => {
+        console.log('this is the data', data)
         return data.json()
       },
         err => console.log(err))
